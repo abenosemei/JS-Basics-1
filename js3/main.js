@@ -1,19 +1,36 @@
-const elementTxt = document.getElementById("elements");
-const sumTxt = document.getElementById("sum");
-
 let arr = [];
-let sum = 0;
 
-arr.push(23);
-arr.push(55);
-arr.push(10);
-arr.push(90);
-arr.push(18);
+function insertNumber() {
+    const numberInput = document.getElementById("numberInput");
+    const num = parseFloat(numberInput.value.trim());
 
-for(let i=0; i<arr.length; i++ ) {
-    sum += arr[i];
+    if (!isNaN(num)) {
+        arr.push(num);
+        numberInput.value = ""; 
+        updateDisplay();
+    } else {
+        alert("Please enter a valid number.");
+    }
 }
 
-elementTxt.innerHTML = arr.join("<br>");
-sumTxt.innerHTML = sum;
-console.log(arr);
+function deleteAll() {
+    arr = [];
+    updateDisplay();
+}
+
+function updateDisplay() {
+    const numbersList = document.getElementById("numbersList");
+    const sumTxt = document.getElementById("sum");
+    const highestTxt = document.getElementById("highest");
+    const lowestTxt = document.getElementById("lowest");
+
+    numbersList.innerHTML = arr.join("<br>");
+
+    let sum = arr.reduce((acc, num) => acc + num, 0);
+    let highest = arr.length > 0 ? Math.max(...arr) : 0;
+    let lowest = arr.length > 0 ? Math.min(...arr) : 0;
+
+    sumTxt.innerHTML = sum;
+    highestTxt.innerHTML = highest;
+    lowestTxt.innerHTML = lowest;
+}
